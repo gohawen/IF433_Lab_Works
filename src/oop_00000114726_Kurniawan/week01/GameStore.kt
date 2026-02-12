@@ -6,20 +6,26 @@ fun calculateDiscount(price: Int): Int =
     else
         (price * 10) / 100
 
-fun printReceipt(title: String, finalPrice: Int) {
-
+fun printReceipt(
+    title: String,
+    finalPrice: Int,
+    userNote: String?
+) {
     println("===== STRUK PEMBELIAN =====")
     println("Game Title  : $title")
     println("Harga Akhir : Rp $finalPrice")
-    println("============================")
 
+    println("Catatan     : ${userNote ?: "Tidak ada catatan"}")
+
+    println("============================")
 }
 
 fun main() {
-
     // Persiapan data awal
     val gameTitle: String = "Minecraft"
     val price: Int = 500000
+
+    val userNote: String? = null
 
     // hitung diskon
     val discount = calculateDiscount(price)
@@ -29,6 +35,7 @@ fun main() {
 
     printReceipt(
         title = gameTitle,
-        finalPrice = finalPrice
+        finalPrice = finalPrice,
+        userNote = userNote
     )
 }
