@@ -1,6 +1,10 @@
 package oop_00000114726_Kurniawan.week02
 
-class Student (val name: String, val nim: String, var major: String) {
+class Student (val name: String, val nim: String, var major: String, var gpa: Double = 0.0) {
+    constructor(name: String, nim: String) : this(name, nim, major = "Non_Matriculated") {
+        println("LOG: Menggunakan constructor jalur umum (Tanpa Jurusan).")
+    }
+
     init {
         if (nim.length != 5) {
             println("WARNING: Objek tercipta dengan NIM ($nim) yang tidak valid!")
@@ -8,9 +12,5 @@ class Student (val name: String, val nim: String, var major: String) {
         } else {
             println("LOG: Objek student $name berhasil dialokasikan di Memory.")
         }
-    }
-
-    constructor(name: String, nim: String) : this(name, nim, major = "Non_Matriculated") {
-        println("LOG: Menggunakan constructor jalur umum (Tanpa Jurusan).")
     }
 }
