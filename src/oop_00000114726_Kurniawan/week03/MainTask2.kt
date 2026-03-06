@@ -4,7 +4,6 @@ fun main() {
 
     val player = Player("Aris")
 
-    println(player.xp) // ini akan error
 
     player.addXp(50) // lvl 1
 
