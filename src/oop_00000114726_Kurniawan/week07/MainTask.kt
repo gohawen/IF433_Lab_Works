@@ -1,9 +1,15 @@
 package oop_00000114726_Kurniawan.week07
 
 fun main() {
-    println("Drop chance item LEGENDARY adalah: ${ItemRarity.LEGENDARY.dropChance}")
-
     val playerWeapon = Weapon.forgeStarterSword()
 
-    println("Detail Senjata Awal Pemain: $playerWeapon")
+    val upgradedGameItem = playerWeapon.item.copy(damage = 25)
+
+    processEvent(SafeZone)
+
+    processEvent(MonsterEncounter("Goblin Nakal"))
+
+    processEvent(LootDropped(upgradedGameItem))
+
+    processEvent(GameOver("Terkena jebakan racun"))
 }
