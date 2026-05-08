@@ -10,4 +10,8 @@ class WalletRepository<T : Any> {
     fun getAll(): List<T> {
         return items
     }
+
+    fun findByName(searchName: String): T? {
+        return items.find { it is NamedEntity && it.name == searchName }
+    }
 }
