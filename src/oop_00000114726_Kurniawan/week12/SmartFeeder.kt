@@ -35,4 +35,10 @@ fun main() {
     } finally {
         println("Siklus pengecekan dispenser pagi selesai.")
     }
+    currentKibbleStock = 1000
+    println("\n--- Simulasi Jadwal Makan Sore (Normal) ---")
+
+    val result = runCatching {
+        dispenseKibble(requestedGram = 30, availableGram = currentKibbleStock, isJammed = false)
+    }
 }
