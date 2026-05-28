@@ -26,7 +26,6 @@ interface OrderRepository {
 
 class CsvOrderRepository : OrderRepository {
     private val file = File("orders.csv")
-
     override fun saveOrder(itemName: String, finalPrice: Double, customerType: String) {
         file.appendText("$itemName,$finalPrice,$customerType\n")
     }
@@ -42,18 +41,30 @@ class EmailNotifier : NotificationService {
     }
 }
 
+interface PricingStrategy {
+    fun calculate(price: Double): Double
+}
+
+class RegularPricing : PricingStrategy {
+    override fun calculate(price: Double): Double = price
+}
+
+class VipPricing : PricingStrategy {
+    override fun calculate(price: Double): Double = price * 0.90
+}
+
 class SafeOrderProcessor(
     private val repo: OrderRepository,
     private val notifier: NotificationService
 ) {
-    fun processOrder(itemName: String, basePrice: Double, customerType: String) {
-        val finalPrice = when (customerType) {
-            "REGULAR" -> basePrice
-            "VIP" -> basePrice * 0.90
-            else -> basePrice
-        }
-
+    fun processOrder(itemName: String, basePrice: Double, pricingStrategy: PricingStrategy) {
+        val finalPrice = pricingStrategy.calculate(basePrice)
         println("Memproses pesanan $itemName seharga $finalPrice")
+
+        val customerType = when (pricingStrategy) {
+            is VipPricing -> "VIP"
+            else -> "REGULAR"
+        }
 
         repo.saveOrder(itemName, finalPrice, customerType)
         notifier.sendNotification(itemName)
